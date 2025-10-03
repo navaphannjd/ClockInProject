@@ -1,0 +1,700 @@
+/* General reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    background-color: #f4f4f4;
+    height: 100vh;
+    transition: all 0.3s ease;
+}
+
+/* Sidebar Styling */
+.sidebar {
+    width: 250px;
+    background-color: #1f2a47;
+    /* Darker color for elegance */
+    color: #d1d1d1;
+    /* Light text for better contrast */
+    position: fixed;
+    height: 100%;
+    padding-top: 20px;
+    transition: width 0.3s ease;
+    /* Smooth transition for width change */
+    z-index: 1000;
+    box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.1);
+    /* Subtle shadow for depth */
+}
+
+.sidebar.collapsed {
+    width: 60px;
+    /* When collapsed, only show icons */
+}
+
+.toggle-btn {
+    background-color: #1f2a47;
+    color: #d1d1d1;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    /* default (desktop): position the button inside the sidebar flow */
+    position: relative;
+    margin-left: 10px;
+    transition: all 0.3s ease;
+}
+
+.nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.nav ul li {
+    padding: 15px 20px;
+    margin: 5px 0;
+    border-radius: 4px;
+    /* Rounded corners for buttons */
+    transition: background-color 0.3s ease;
+}
+
+.nav ul li:hover {
+    background-color: #3b4b79;
+    /* Hover effect for better interactivity */
+}
+
+.nav ul li a {
+    color: #d1d1d1;
+    text-decoration: none;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    transition: padding-left 0.3s ease;
+}
+
+.nav ul li a i {
+    margin-right: 15px;
+    font-size: 22px;
+    /* Larger icons for visual impact */
+}
+
+/* Text of menu items */
+.menu-text {
+    display: inline-block;
+    transition: opacity 0.3s ease;
+    opacity: 1;
+}
+
+/* Hide text when collapsed */
+.sidebar.collapsed .menu-text {
+    display: none;
+}
+
+/* Submenu styling */
+.submenu-list {
+    list-style-type: none;
+    padding-left: 20px;
+    display: none;
+}
+
+.submenu-list.show {
+    display: block;
+}
+
+.arrow-icon {
+    margin-left: auto;
+    transition: transform 0.3s ease;
+}
+
+/* Rotate arrow when submenu is opened */
+.arrow-icon.rotate {
+    transform: rotate(90deg);
+}
+
+/* Hide arrow icon when sidebar is collapsed */
+.sidebar.collapsed .arrow-icon {
+    display: none;
+}
+
+/* Main Content Area */
+.main-content {
+    margin-left: 250px;
+    padding: 20px;
+    width: calc(100% - 250px);
+    transition: margin-left 0.3s ease;
+}
+
+.sidebar.collapsed+.main-content {
+    margin-left: 60px;
+    width: calc(100% - 60px);
+}
+
+/* Styles for collapsed sidebar */
+.sidebar.collapsed .nav ul li a {
+    justify-content: left;
+    /* Center text when sidebar is collapsed */
+}
+
+.sidebar.collapsed .nav ul li a i {
+    margin-right: 0;
+    /* Remove margin from icons when collapsed */
+}
+
+.sidebar.collapsed .submenu-list {
+    display: none;
+    /* Hide submenus in collapsed mode */
+}
+
+/* Table Styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    background-color: #8d8d8d;
+    /* Dark background */
+    color: #000000;
+    /* White text for contrast */
+    border-radius: 8px;
+    /* Rounded corners */
+    overflow: hidden;
+    /* Prevent the rounded corners from being cut off */
+}
+
+th,
+td {
+    padding: 15px;
+    text-align: left;
+}
+
+th {
+    background-color: #ececec;
+    /* Darker background for headers */
+    font-size: 18px;
+}
+
+td {
+    background-color: #ffffff;
+    /* Lighter background for table data */
+    font-size: 16px;
+}
+
+/* Collapsible row */
+.collapsible-content {
+    display: none;
+    background-color: #ffffff;
+    /* Slightly lighter for expanded rows */
+}
+
+/* Arrow styling */
+.collapsible-arrow {
+    cursor: pointer;
+    font-size: 20px;
+    color: #000000;
+    transition: transform 0.3s ease;
+    margin-right: 10px;
+}
+
+.arrow-rotated {
+    transform: rotate(90deg);
+    /* Rotate the arrow when expanded */
+}
+
+/* Optional: Add more style for the collapsible content */
+.collapsible-content td {
+    padding: 8px;
+}
+
+/* Hover Effect */
+tr:hover {
+    background-color: #444;
+    /* Slightly change background on hover */
+}
+
+/* Remove border between columns */
+td,
+th {
+    border: none;
+}
+
+/* Add subtle shadow to the table */
+table {
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Mobile: show only hamburger, sidebar off-canvas until opened */
+@media (max-width: 900px) {
+    /* ensure body stacks vertically */
+    body { height: auto; }
+
+    /* Off-canvas sidebar using left so fixed children (hamburger) stay positioned correctly */
+    .sidebar {
+        left: 0; /* default visible if not collapsed */
+        top: 0;
+        width: 260px;
+        transition: left 0.25s ease;
+        z-index: 1200;
+        /* leave extra top space so mobile fixed hamburger doesn't overlap nav items */
+        padding-top: 64px;
+    }
+
+    /* Collapsed state hides the sidebar off-screen */
+    .sidebar.collapsed {
+        left: -280px;
+    }
+
+    /* Keep the hamburger visible and tappable even when it's inside the sidebar */
+    .toggle-btn {
+        position: fixed;
+        top: 12px;
+        left: 12px;
+        z-index: 1300;
+        background-color: #1f2a47;
+        color: #d1d1d1;
+        border: none;
+        padding: 8px 10px;
+        border-radius: 6px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    }
+
+    /* push the nav list down inside the sidebar so items don't sit under the fixed hamburger */
+    .sidebar .nav ul {
+        margin-top: 8px; /* small gap after the top padding */
+    }
+
+    /* Main content should be full width when the sidebar is collapsed (hidden) */
+    .main-content {
+        margin-left: 0;
+        width: 100%;
+        padding: 16px;
+    }
+
+    /* When the sidebar is open (not collapsed) push content so it's not covered */
+    .sidebar:not(.collapsed) + .main-content {
+        margin-left: 260px;
+        width: calc(100% - 260px);
+    }
+
+    /* Slightly larger touch targets for buttons */
+    .btn-plus, .btn-save, .btn-edit, .btn-delete, .btn-back { width:44px; height:44px; }
+}
+
+
+/* Date picker container */
+.date-picker-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.summary-title h2 {
+    color: #000000;
+    margin: 0;
+    font-size: 24px;
+}
+
+.date-pickers {
+    display: flex;
+    gap: 15px;
+}
+
+.date-pickers label {
+    margin-right: 5px;
+    font-weight: 500;
+    font-size: 14px;
+    color: #333;
+}
+
+.date-pickers input[type="date"] {
+    padding: 6px 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    background-color: #fff;
+    transition: 0.3s;
+}
+
+.date-pickers input[type="date"]:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
+}
+
+
+.add-btn {
+    display: flex;
+    align-items: flex-end;
+    /* ให้ปุ่มขนานกับ input */
+    margin-left: 10px;
+}
+
+.btn-plus {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 36px;
+    height: 36px;
+    background-color: #3b4b79;
+    color: white;
+    border-radius: 25%;
+    text-decoration: none;
+    font-size: 18px;
+    transition: background-color 0.3s;
+}
+
+.btn-plus:hover {
+    background-color: #26304e;
+}
+
+.btn-back {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 36px;
+    height: 36px;
+    background-color: #7a1b1b;
+    color: white;
+    border-radius: 25%;
+    text-decoration: none;
+    font-size: 18px;
+    transition: background-color 0.3s;
+}
+
+.btn-back:hover {
+    background-color: #491010;
+}
+
+.btn-save {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 36px;
+    height: 36px;
+    background-color: #3b4b79;
+    color: white;
+    border-radius: 25%;
+    text-decoration: none;
+    font-size: 18px;
+    transition: background-color 0.3s;
+    margin-right: 20px;
+}
+
+.btn-save:hover {
+    background-color: #26304e;
+}
+
+.btn-edit {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 36px;
+    height: 36px;
+    background-color: #4897b6;
+    color: white;
+    border-radius: 25%;
+    text-decoration: none;
+    font-size: 18px;
+    transition: background-color 0.3s;
+    margin-right: 20px;
+}
+
+.btn-edit:hover {
+    background-color: #295769;
+}
+
+.btn-delete {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 36px;
+    height: 36px;
+    background-color: #7a1b1b;
+    color: white;
+    border-radius: 25%;
+    text-decoration: none;
+    font-size: 18px;
+    transition: background-color 0.3s;
+    margin-right: 20px;
+}
+
+.btn-delete:hover {
+    background-color: #491010;
+}
+
+h1 a {
+    color: inherit;
+    text-decoration: none;
+}
+
+h1 a:hover {
+    text-decoration: underline;
+}
+
+
+.btn-plus:hover {
+    background-color: #26304e;
+}
+
+.form-container {
+    max-width: 700px;
+    margin: 20px auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-container h2 {
+    margin-bottom: 20px;
+}
+
+.form-group {
+    display: flex;
+    margin-bottom: 15px;
+    align-items: center;
+}
+
+.form-group label {
+    flex: 0 0 150px;
+    font-weight: bold;
+}
+
+.form-group input,
+.form-group select {
+    flex: 1;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.form-actions {
+    text-align: right;
+    margin-top: 20px;
+}
+
+.form-group-day {
+    display: flex;
+    margin-bottom: 15px;
+    align-items: center;
+    margin-left: 150px;
+}
+
+.form-group-day label {
+    flex: 0 0 150px;
+    font-weight: bold;
+}
+
+.form-group-day input,
+.form-group-day select {
+    flex: 1;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+/* Filter Button */
+.filter-btn {
+    position: relative;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.btn-filter {
+    background-color: #3b4b79;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+    height: 36px;
+}
+
+.btn-filter:hover {
+    background-color: #26304e;
+}
+
+/* Dropdown options */
+.filter-options {
+    display: none;
+    position: absolute;
+    top: 110%;
+    left: 0;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    min-width: 120px;
+}
+
+.filter-options a {
+    display: block;
+    padding: 8px 12px;
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+}
+
+.filter-options a:hover {
+    background-color: #f1f1f1;
+}
+
+.delete-btn,
+.edit-btn {
+    display: none;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+.delete-btn.show,
+.edit-btn.show {
+    display: inline-block;
+}
+
+.delete-btn i {
+    color: red;
+}
+
+.edit-btn i {
+    color: #007bff;
+}
+
+.location-pair {
+    margin-bottom: 8px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-left: 150px;
+}
+
+.location-pair input {
+    flex: 1;
+}
+
+.remove-btn {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 4px 8px;
+    cursor: pointer;
+    border-radius: 3px;
+    height: 30px;
+    width: 30px;
+}
+
+.remove-btn:hover {
+    background-color: #cc0000;
+}
+
+.add-location-btn {
+    background-color: #3b4b79;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+    height: 36px;
+    margin-bottom: 10px;
+}
+
+.add-location-btn:hover {
+    background-color: #26304e;
+}
+
+.monday-open,
+.monday-close {
+    margin-top: 10px;
+    margin-left: 10px;
+    width: 150px;
+}
+
+.tuesday-open,
+.tuesday-close {
+    margin-top: 10px;
+    margin-left: 10px;
+    width: 150px;
+}
+
+.wednesday-open,
+.wednesday-close {
+    margin-top: 10px;
+    margin-left: 10px;
+    width: 150px;
+}
+
+.thursday-open,
+.thursday-close {
+    margin-top: 10px;
+    margin-left: 10px;
+    width: 150px;
+}
+
+.friday-open,
+.friday-close {
+    margin-top: 10px;
+    margin-left: 10px;
+    width: 150px;
+}
+
+.saturnday-open,
+.saturnday-close {
+    margin-top: 10px;
+    margin-left: 10px;
+    width: 150px;
+}
+
+.sunday-open,
+.sunday-close {
+    margin-top: 10px;
+    margin-left: 10px;
+    width: 150px;
+}
+
+.month-group {
+    display: flex;
+    align-items: center;
+}
+
+.month-group label {
+    flex: 0 0 50px;
+    font-weight: bold;
+}
+
+.month-group input,
+.month-group select {
+    flex: 1;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.month-actions {
+    text-align: right;
+    margin-top: 20px;
+}
+
+.month-group-month {
+    display: flex;
+    margin-bottom: 15px;
+    align-items: center;
+    margin-left: 150px;
+}
+
+.month-group-month label {
+    flex: 0 0 150px;
+    font-weight: bold;
+}
+
+.month-group-month input,
+.month-group-month select {
+    flex: 1;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}

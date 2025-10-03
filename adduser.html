@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add User</title>
+    <link rel="stylesheet" href="timesheet.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script>
+        window.onload = function () {
+            var nav = document.getElementById("sidebar");
+            nav.classList.add("collapsed");
+            if (window.innerWidth <= 900) {
+                var btn = nav.querySelector('.toggle-btn');
+                if (btn && btn.parentElement !== document.body) document.body.appendChild(btn);
+            }
+        }
+
+        // Toggle Sidebar (Expand / Collapse)
+        function toggleNav() {
+            var nav = document.getElementById("sidebar");
+            nav.classList.toggle("collapsed");
+        }
+
+        // Toggle Submenu (Open / Close)
+        function toggleSubmenu(menuId) {
+            var submenu = document.getElementById(menuId);
+            var icon = submenu.previousElementSibling.querySelector('.arrow-icon');
+
+            // Toggle the submenu visibility
+            submenu.classList.toggle('show');
+
+            // Rotate the arrow icon
+            if (submenu.classList.contains('show')) {
+                icon.classList.add('rotate');
+            } else {
+                icon.classList.remove('rotate');
+            }
+        }
+        // Function to toggle visibility of the collapsible row
+        function toggleRow(rowId) {
+            var row = document.getElementById(rowId);
+            var arrow = row.previousElementSibling.querySelector('.collapsible-arrow');
+
+            if (row.style.display === "table-row") {
+                row.style.display = "none";
+                arrow.querySelector('i').classList.remove('fa-rotate-90');
+            } else {
+                row.style.display = "table-row";
+                arrow.querySelector('i').classList.add('fa-rotate-90');
+            }
+        }
+
+        function addLocation() {
+            const container = document.getElementById('location-container');
+            const locationPair = document.createElement('div');
+            locationPair.className = 'location-pair';
+            locationPair.innerHTML = `
+            <input type="text" name="location-id[]" placeholder="Location ID">
+            <input type="text" name="location-name[]" placeholder="Location Name">
+            <button type="button" class="remove-btn" onclick="removeLocation(this)">-</button>
+        `;
+            container.appendChild(locationPair);
+        }
+
+        function removeLocation(button) {
+            const pair = button.parentElement;
+            pair.remove();
+        }
+    </script>
+</head>
+
+<body>
+    <!-- Sidebar for Navigation -->
+    <div id="sidebar" class="sidebar">
+        <button class="toggle-btn" onclick="toggleNav()">☰</button>
+        <nav class="nav">
+            <ul>
+                <li><a href="dashboard.html"><i class="fa solid fa-house"></i><span
+                            class="menu-text">Dashboard</span></a></li>
+                <li><a href="timesheet.html"><i class="fa solid fa-calendar"></i><span
+                            class="menu-text">Timesheet</span></a></li>
+                <li><a href="member.html"><i class="fa fa-users"></i><span class="menu-text">Member</span></a></li>
+                <li class="submenu">
+                    <a href="javascript:void(0);" onclick="toggleSubmenu('report-submenu')">
+                        <i class="fa solid fa-file-lines"></i><span class="menu-text">Report</span>
+                        <i class="fa solid fa-angle-right arrow-icon"></i>
+                    </a>
+                    <ul id="report-submenu" class="submenu-list">
+                        <li><a href="admin-report.html">Admin Report</a></li>
+                        <li><a href="user-report.html">User Report</a></li>
+                    </ul>
+                </li>
+                <li class="submenu">
+                    <a href="javascript:void(0);" onclick="toggleSubmenu('admin-submenu')">
+                        <i class="fa solid fa-user-tie"></i><span class="menu-text">Admin</span>
+                        <i class="fa solid fa-angle-right arrow-icon"></i>
+                    </a>
+                    <ul id="admin-submenu" class="submenu-list">
+                        <li><a href="admin-approve.html">Approve</a></li>
+                        <li><a href="admin-paid.html">Paid</a></li>
+                    </ul>
+                </li>
+                <li class="submenu">
+                    <a href="javascript:void(0);" onclick="toggleSubmenu('setting-submenu')">
+                        <i class="fa fa-gear"></i><span class="menu-text">Setting</span>
+                        <i class="fa solid fa-angle-right arrow-icon"></i>
+                    </a>
+                    <ul id="setting-submenu" class="submenu-list">
+                        <li><a href="user-setting.html">Users Setting</a></li>
+                        <li><a href="member-setting.html">Member Setting</a></li>
+                        <li><a href="location-setting.html">Location Setting</a></li>
+                        <li><a href="mission-setting.html">Mission Setting</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="main-content">
+        <h1><a href="user-setting.html">Setting > User</a> > Add User</h1>
+        <div class="date-picker-container">
+            <div class="summary-title">
+                <h2>User Details</h2>
+            </div>
+            <div class="date-pickers">
+                <div class="add-btn">
+                    <a href="user-setting.html" class="btn-save"><i class="fa-solid fa-floppy-disk"></i></a>
+                    <a href="user-setting.html" class="btn-back"><i class="fa-solid fa-reply"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <body>
+            <form>
+                <div class="form-group">
+                    <label for="member-id">Employee ID</label>
+                    <input type="text" id="employee-id" name="employee-id">
+                </div>
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name">
+                </div>
+                <div class="form-group">
+                    <label for="surname">Surname</label>
+                    <input type="text" id="surname" name="surname">
+                </div>
+                <div class="form-group">
+                    <label for="citizen-id">Citizen ID</label>
+                    <input type="text" id="citizen-id" name="citizen-id">
+                </div>
+                <div class="form-group">
+                    <label for="nickname">Nickname</label>
+                    <input type="text" id="nickname" name="nickname">
+                </div>
+                <div class="form-group">
+                    <label for="mobile-phone">Mobile Phone</label>
+                    <input type="text" id="mobile-phone" name="mobile-phone">
+                </div>
+                <div class="form-group">
+                    <label for="address">Address</label>
+                    <input type="text" id="address" name="address">
+                </div>
+                <div class="form-group">
+                    <label for="province">Province</label>
+                    <input type="text" id="province" name="province">
+                </div>
+                <div class="form-group">
+                    <label for="postal-code">Postal Code</label>
+                    <input type="text" id="postal-code" name="postal-code">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="text" id="email" name="email">
+                </div>
+                <div class="form-group">
+                    <label>Location(s)</label>
+                    <button class="add-location-btn" type="button" onclick="addLocation()">+ Add Location</button>
+                </div>
+                <div class="form-group">
+                    <div id="location-container">
+                        <div class="location-pair">
+                            <input type="text" name="location-id[]" placeholder="Location ID">
+                            <input type="text" name="location-name[]" placeholder="Location Name">
+                            <button type="button" class="remove-btn" onclick="removeLocation(this)">-</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="role">Role</label>
+                    <select id="role" name="role">
+                        <option value="">- Select Role -</option>
+                        <option value="user">User</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </div>
+            </form>
+    </div>
+</body>
+
+</html>

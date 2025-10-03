@@ -1,0 +1,297 @@
+/* General reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body settings */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    line-height: 1.6;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* Main container */
+main {
+    width: 100%;
+    max-width: 1200px;
+    margin-top: 50px;
+}
+
+/* -------------------------------------Login Page------------------------------------- */
+/* Login form section */
+.login-form {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Form title */
+.login-form h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 28px;
+    color: #1e88e5;
+}
+
+/* Form labels */
+.login-form label {
+    font-weight: bold;
+    margin-bottom: 8px;
+    display: block;
+    color: #555;
+}
+
+/* Input fields */
+.login-form input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+/* Input field focus effect */
+.login-form input:focus {
+    border-color: #1e88e5;
+    outline: none;
+}
+
+/* Submit button */
+.login-form button {
+    background-color: #1e88e5;
+    color: white;
+    border: none;
+    padding: 12px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 18px;
+    transition: background-color 0.3s;
+}
+
+.login-form button:hover {
+    background-color: #1565c0;
+}
+
+/* Register link */
+.login-form .register-link {
+    display: block;
+    text-align: center;
+    margin-top: 15px;
+    color: #1e88e5;
+    text-decoration: none;
+}
+
+.login-form .register-link:hover {
+    text-decoration: underline;
+}
+
+/* Login link */
+.login-link {
+    display: block;
+    text-align: center;
+    margin-top: 15px;
+    color: #1e88e5;
+    text-decoration: none;
+}
+
+.login-link:hover {
+    text-decoration: underline;
+}
+
+/* -------------------------------------Rigister Page------------------------------------- */
+/* Registration form section */
+.registration-form {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Form title */
+.registration-form h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 28px;
+    color: #1e88e5;
+}
+
+/* Form labels */
+.registration-form label {
+    font-weight: bold;
+    margin-bottom: 8px;
+    display: block;
+    color: #555;
+}
+
+/* Input fields */
+.registration-form input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+/* Input field focus effect */
+.registration-form input:focus {
+    border-color: #1e88e5;
+    outline: none;
+}
+
+/* Submit button */
+.registration-form button {
+    background-color: #1e88e5;
+    color: white;
+    border: none;
+    padding: 12px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 18px;
+    transition: background-color 0.3s;
+}
+
+.registration-form button:hover {
+    background-color: #1565c0;
+}
+
+/* Input field for selecting country */
+.registration-form select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+/* Placeholder style */
+.registration-form input::placeholder {
+    color: #bbb;
+    font-style: italic;
+}
+
+/* Style for the main form container */
+.registration-form .form-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.registration-form .form-row input {
+    width: 48%;
+}
+
+/* Add margin for the last row */
+.registration-form .form-row:last-child input {
+    width: 100%;
+}
+
+/* -------------------------------------Dashboard Page------------------------------------- */
+.sidebar {
+    width: 250px;
+    background-color: #1e88e5;
+    color: white;
+    position: fixed;
+    height: 100%;
+    padding-top: 20px;
+    transition: all 0.3s;
+}
+
+.sidebar.collapsed {
+    width: 60px;
+}
+
+.toggle-btn {
+    background-color: #1e88e5;
+    color: white;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.nav ul li {
+    padding: 10px;
+}
+
+.nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    display: block;
+}
+
+.submenu-list {
+    list-style-type: none;
+    padding-left: 20px;
+    display: none;
+}
+
+.submenu:hover .submenu-list {
+    display: block;
+}
+
+.main-content {
+    margin-left: 250px;
+    padding: 20px;
+    width: calc(100% - 250px);
+    transition: margin-left 0.3s;
+}
+
+.sidebar.collapsed+.main-content {
+    margin-left: 60px;
+    width: calc(100% - 60px);
+}
+
+/* -------------------------------------Responsive------------------------------------- */
+@media (max-width: 768px) {
+    .login-form {
+        padding: 20px;
+        width: 90%;
+    }
+
+    .login-form h1 {
+        font-size: 24px;
+    }
+
+    .registration-form {
+        padding: 20px;
+        width: 90%;
+    }
+
+    .registration-form h1 {
+        font-size: 24px;
+    }
+
+    .sidebar {
+        width: 100%;
+        position: static;
+    }
+
+    .main-content {
+        margin-left: 0;
+        width: 100%;
+    }
+}

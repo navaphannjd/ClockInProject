@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        // ฟังก์ชันที่ดึงข้อมูล Location ID ที่ Active = Yes
+        function fetchLocations() {
+            var scriptURL = 'https://script.google.com/macros/s/AKfycbws3TijByIBYxcvkd9D6loVZgPrmz_FcZ7zQGf7XmtEFRErJ-cEiYuRssHDddUFtMfNhg/exec';
+
+            fetch(scriptURL)
+                .then(response => response.json())
+                .then(result => {
+                    var locations = result.locations;
+                    var locationSelect = document.getElementById('location');
+                    // เพิ่มตัวเลือกลงใน Drop Down
+                    locations.forEach(function (location) {
+                        var option = document.createElement('option');
+                        option.value = location;
+                        option.textContent = location;
+                        locationSelect.appendChild(option);
+                    });
+                })
+                .catch(error => {
+                    console.error("Error fetching locations:", error);
+                });
+        }
+
+        // ฟังก์ชันส่งข้อมูลจากฟอร์มไปยัง Google Sheets
+        function sendDataToGoogleSheets(event) {
+            event.preventDefault();
+
+            // เก็บข้อมูลจากฟอร์ม
+            var formData = new FormData(document.getElementById("registration-form"));
+
+            // แปลงข้อมูลเป็นอ็อบเจ็กต์
+            var data = {};
+            formData.forEach(function (value, key) {
+                data[key] = value;
+            });
+
+            data.role = "User";
+            data.active_user = "No";
+
+            var scriptURL = 'https://script.google.com/macros/s/AKfycbws3TijByIBYxcvkd9D6loVZgPrmz_FcZ7zQGf7XmtEFRErJ-cEiYuRssHDddUFtMfNhg/exec';
+
+            // ส่งข้อมูลไปยัง Google Apps Script
+            fetch(scriptURL, {
+                method: 'POST',
+                body: new URLSearchParams({
+                    action: 'register', // ระบุว่าเป็นการทำงานของฟังก์ชัน Register
+                    ...data
+                })
+            })
+                .then(response => response.json())
+                .then(result => {
+                    if (result.result === "success") {
+                        alert("Registration successful!");
+                        window.location.href = "index.html"; // กลับไปหน้า Login หลังจากลงทะเบียนสำเร็จ
+                    } else {
+                        alert("Error submitting the form!");
+                    }
+                })
+                .catch(error => {
+                    alert("Error: " + error);
+                });
+        }
+
+        window.onload = function () {
+            fetchLocations(); // ดึงข้อมูล Location ตอนโหลดหน้า
+        };
+    </script>
+</head>
+
+<body>
+    <main>
+        <section class="registration-form">
+            <h1>Register</h1>
+            <form id="registration-form" onsubmit="sendDataToGoogleSheets(event)">
+                <label for="employee-id">* Employee ID</label>
+                <input type="text" id="employee-id" name="employee_id" placeholder="Employee ID" required>
+
+                <label for="citizen-id">* Citizen ID</label>
+                <input type="text" id="citizen-id" name="citizen_id" placeholder="Citizen ID" required>
+
+                <label for="name">* First Name</label>
+                <input type="text" id="name" name="first_name" placeholder="First Name" required>
+
+                <label for="surname">* Last Name</label>
+                <input type="text" id="surname" name="last_name" placeholder="Last Name" required>
+
+                <label for="nickname">* Nickname</label>
+                <input type="text" id="nickname" name="nickname" placeholder="Nickname" required>
+
+                <label for="mobile-phone">* Mobile Phone</label>
+                <input type="text" id="mobile-phone" name="mobile_phone" placeholder="Mobile Phone" required>
+
+                <label for="address">* Address</label>
+                <input type="text" id="address" name="address" placeholder="Address" required>
+
+                <label for="province">* Province</label>
+                <input type="text" id="province" name="province" placeholder="Province" required>
+
+                <label for="postal-code">* Postal Code</label>
+                <input type="text" id="postal-code" name="postal_code" placeholder="Postal Code" required>
+
+                <label for="email">* Email</label>
+                <input type="email" id="email" name="email" placeholder="Email" required>
+
+                <label for="password">* Password</label>
+                <input type="password" id="password" name="password" placeholder="Password" required>
+
+                <label for="location">* Select Location</label>
+                <select id="location" name="location_u" required>
+                    <option value="" disabled selected>Select a location</option>
+                </select>
+
+                <button type="submit">Register</button>
+            </form>
+            <a href="index.html" class="login-link">Login</a>
+        </section>
+    </main>
+</body>
+
+</html>

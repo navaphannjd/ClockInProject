@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mission Setting</title>
+    <link rel="stylesheet" href="timesheet.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script>
+        window.onload = function () {
+            var nav = document.getElementById("sidebar");
+            nav.classList.add("collapsed");
+            if (window.innerWidth <= 900) {
+                var btn = nav.querySelector('.toggle-btn');
+                if (btn && btn.parentElement !== document.body) document.body.appendChild(btn);
+            }
+        }
+
+        // Toggle Sidebar (Expand / Collapse)
+        function toggleNav() {
+            var nav = document.getElementById("sidebar");
+            nav.classList.toggle("collapsed");
+        }
+
+        // Toggle Submenu (Open / Close)
+        function toggleSubmenu(menuId) {
+            var submenu = document.getElementById(menuId);
+            var icon = submenu.previousElementSibling.querySelector('.arrow-icon');
+
+            // Toggle the submenu visibility
+            submenu.classList.toggle('show');
+
+            // Rotate the arrow icon
+            if (submenu.classList.contains('show')) {
+                icon.classList.add('rotate');
+            } else {
+                icon.classList.remove('rotate');
+            }
+        }
+        // Function to toggle visibility of the collapsible row
+        function toggleRow(rowId) {
+            var row = document.getElementById(rowId);
+            var arrow = row.previousElementSibling.querySelector('.collapsible-arrow');
+
+            if (row.style.display === "table-row") {
+                row.style.display = "none";
+                arrow.querySelector('i').classList.remove('fa-rotate-90'); 
+            } else {
+                row.style.display = "table-row";
+                arrow.querySelector('i').classList.add('fa-rotate-90');
+            }
+        }
+        // Toggle delete buttons for each row
+        function toggleDeleteButtons() {
+            const deleteBtns = document.querySelectorAll('.delete-btn');
+            deleteBtns.forEach(btn => btn.classList.toggle('show'));
+        }
+
+        function toggleEditButtons() {
+            const editBtns = document.querySelectorAll('.edit-btn');
+            editBtns.forEach(btn => btn.classList.toggle('show'));
+        }
+    </script>
+</head>
+
+<body>
+    <!-- Sidebar for Navigation -->
+    <div id="sidebar" class="sidebar">
+        <button class="toggle-btn" onclick="toggleNav()">☰</button>
+        <nav class="nav">
+            <ul>
+                <li><a href="dashboard.html"><i class="fa solid fa-house"></i><span
+                            class="menu-text">Dashboard</span></a></li>
+                <li><a href="timesheet.html"><i class="fa solid fa-calendar"></i><span
+                            class="menu-text">Timesheet</span></a></li>
+                <li><a href="member.html"><i class="fa fa-users"></i><span class="menu-text">Member</span></a></li>
+                <li class="submenu">
+                    <a href="javascript:void(0);" onclick="toggleSubmenu('report-submenu')">
+                        <i class="fa solid fa-file-lines"></i><span class="menu-text">Report</span>
+                        <i class="fa solid fa-angle-right arrow-icon"></i>
+                    </a>
+                    <ul id="report-submenu" class="submenu-list">
+                        <li><a href="admin-report.html">Admin Report</a></li>
+                        <li><a href="user-report.html">User Report</a></li>
+                    </ul>
+                </li>
+                <li class="submenu">
+                    <a href="javascript:void(0);" onclick="toggleSubmenu('admin-submenu')">
+                        <i class="fa solid fa-user-tie"></i><span class="menu-text">Admin</span>
+                        <i class="fa solid fa-angle-right arrow-icon"></i>
+                    </a>
+                    <ul id="admin-submenu" class="submenu-list">
+                        <li><a href="admin-approve.html">Approve</a></li>
+                        <li><a href="admin-paid.html">Paid</a></li>
+                    </ul>
+                </li>
+                <li class="submenu">
+                    <a href="javascript:void(0);" onclick="toggleSubmenu('setting-submenu')">
+                        <i class="fa fa-gear"></i><span class="menu-text">Setting</span>
+                        <i class="fa solid fa-angle-right arrow-icon"></i>
+                    </a>
+                    <ul id="setting-submenu" class="submenu-list">
+                        <li><a href="user-setting.html">Users Setting</a></li>
+                        <li><a href="member-setting.html">Member Setting</a></li>
+                        <li><a href="location-setting.html">Location Setting</a></li>
+                        <li><a href="mission-setting.html">Mission Setting</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="main-content">
+        <h1>Setting > Mission</h1>
+        <div class="date-picker-container">
+            <div class="summary-title">
+                <h2>List</h2>
+            </div>
+            <div class="date-pickers">
+                <div class="add-btn">
+                    <a href="addmission.html" class="btn-save"><i class="fa-solid fa-plus"></i></a>
+                    <a class="btn-edit" onclick="toggleEditButtons()"><i class="fa-solid fa-pen-to-square"></i></a>
+                    <a class="btn-delete" onclick="toggleDeleteButtons()"><i class="fa-solid fa-trash"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <body>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Mission ID</th>
+                        <th>Mission Description</th>
+                        <th>Active</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>MI01</td>
+                        <td>Mission Description</td>
+                        <td><i class="fa-regular fa-square-check"></i></td>
+                        <td>
+                            <span class="delete-btn" onclick="alert('Delete row 1')">
+                                <i class="fa-solid fa-trash-alt"></i>
+                            </span>
+                            <a href="mission-edit.html" class="edit-btn">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>MI02</td>
+                        <td>Mission Description</td>
+                        <td><i class="fa-regular fa-square-check"></i></td>
+                        <td>
+                            <span class="delete-btn" onclick="alert('Delete row 2')">
+                                <i class="fa-solid fa-trash-alt"></i>
+                            </span>
+                            <a href="mission-edit.html" class="edit-btn">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+    </div>
+</body>
+
+</html>
