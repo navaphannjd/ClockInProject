@@ -24,10 +24,23 @@
         }
 
         // Toggle Sidebar (Expand / Collapse)
-        function toggleNav() {
-            var nav = document.getElementById("sidebar");
-            nav.classList.toggle("collapsed");
+       window.onload = function () {
+        var nav = document.getElementById("sidebar");
+
+        // ถ้าเป็นจอเล็ก ย้ายปุ่ม hamburger ออกมา
+        if (window.innerWidth <= 900) {
+            var btn = nav.querySelector('.toggle-btn');
+            if (btn && btn.parentElement !== document.body) {
+                document.body.appendChild(btn);
+            }
         }
+    }
+
+    // Toggle Sidebar เฉพาะปุ่ม hamburger
+    function toggleNav() {
+        var nav = document.getElementById("sidebar");
+        nav.classList.toggle("collapsed");
+    }
 
         // Toggle Submenu (Open / Close)
         function toggleSubmenu(menuId) {
