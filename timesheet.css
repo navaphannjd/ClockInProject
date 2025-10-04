@@ -16,7 +16,7 @@ body {
 /* Sidebar Styling */
 .sidebar {
     width: 250px;
-    background-color: #1f2a47;
+    background-color: #0f016b;
     /* Darker color for elegance */
     color: #d1d1d1;
     /* Light text for better contrast */
@@ -36,15 +36,16 @@ body {
 }
 
 .toggle-btn {
-    background-color: #1f2a47;
+    background-color: #0f016b;
     color: #d1d1d1;
     border: none;
     font-size: 24px;
     cursor: pointer;
     /* default (desktop): position the button inside the sidebar flow */
     position: relative;
-    margin-left: 10px;
+    
     transition: all 0.3s ease;
+     padding: 15px 20px;
 }
 
 .nav ul {
@@ -61,7 +62,7 @@ body {
 }
 
 .nav ul li:hover {
-    background-color: #3b4b79;
+    background-color: #0a5381;
     /* Hover effect for better interactivity */
 }
 
@@ -169,7 +170,7 @@ td {
 }
 
 th {
-    background-color: #ececec;
+    background-color: #36c982;
     /* Darker background for headers */
     font-size: 18px;
 }
@@ -250,7 +251,7 @@ table {
         top: 12px;
         left: 12px;
         z-index: 1300;
-        background-color: #1f2a47;
+        background-color: #0f016b;
         color: #d1d1d1;
         border: none;
         padding: 8px 10px;
@@ -336,7 +337,7 @@ table {
     align-items: center;
     width: 36px;
     height: 36px;
-    background-color: #3b4b79;
+    background-color: #8c0ba6;
     color: white;
     border-radius: 25%;
     text-decoration: none;
@@ -354,7 +355,7 @@ table {
     align-items: center;
     width: 36px;
     height: 36px;
-    background-color: #7a1b1b;
+    background-color: #c06f0c;
     color: white;
     border-radius: 25%;
     text-decoration: none;
@@ -372,7 +373,7 @@ table {
     align-items: center;
     width: 36px;
     height: 36px;
-    background-color: #3b4b79;
+    background-color: #0b20a6;
     color: white;
     border-radius: 25%;
     text-decoration: none;
@@ -391,7 +392,7 @@ table {
     align-items: center;
     width: 36px;
     height: 36px;
-    background-color: #4897b6;
+    background-color: #9cca1f;
     color: white;
     border-radius: 25%;
     text-decoration: none;
@@ -410,7 +411,7 @@ table {
     align-items: center;
     width: 36px;
     height: 36px;
-    background-color: #7a1b1b;
+    background-color: red;
     color: white;
     border-radius: 25%;
     text-decoration: none;
@@ -502,7 +503,7 @@ h1 a:hover {
 }
 
 .btn-filter {
-    background-color: #3b4b79;
+    background-color: #8c0ba6;
     color: white;
     border: none;
     padding: 6px 12px;
@@ -591,7 +592,7 @@ h1 a:hover {
 }
 
 .add-location-btn {
-    background-color: #3b4b79;
+    background-color: #8c0ba6;
     color: white;
     border: none;
     padding: 6px 12px;
